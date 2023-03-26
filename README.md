@@ -44,3 +44,53 @@ laudspeaker.fire({'event':'some event'}, { 'payload': 'some value' });
 If the user has been identified, the event will be correlated with that identity, oherwise it will be associated with the anonymous identifier. If the user is later identified, the previously identified events will be correlated with the identified user.
 
 ### In App Messaging:
+You can add custom handlers to in-app message events that can fire when a customer interacts with an in-app message. Three interactions are built in by default: `opened`,`dismissed` and `error`, and you can add custom actions when building your in app message templates.
+
+To listen to `opened` events:
+```
+const onMessageOpened = function ({messageId}) {
+    console.log('Message Opened:');
+    console.log('Message Id: ', messageId);
+};
+
+// run the listener everytime message is shown
+laudspeaker.on('in-app:message-opened', onMessageOpened);
+
+// run the listener only once
+laudspeaker.on('in-app:message-opened', onMessageOpened, { once: true })
+
+// turn off the listener
+laudspeaker.off('in-app:message-opened', onMessageOpened)
+```
+To listen to `dismissed` events:
+```
+const onMessageDismissed = function ({messageId}) {
+    console.log('Message Dismissed:');
+    console.log('Message Id: ', messageId);
+};
+
+laudspeaker.on('in-app:message-dismissed', onMessageDismissed);
+```
+
+To listen to `error` events:
+```
+const onMessageError = function ({messageId}) {
+    console.log('Message Error:');
+    console.log('Message Id: ', messageId);
+};
+
+laudspeaker.on('in-app:message-error', onMessageError);
+```
+
+To listen to custom actions:
+
+```
+const onMessageAction = function ({messageId, actionName, actionValue}) {
+    console.log('Message Action:');
+    console.log('Message Id: ', messageId);
+    console.log('Action Name: ', actionName);
+    console.log('Action Value: ', actionValue);
+};
+
+laudspeaker.on('in-app:message-action', onMessageAction);
+```
