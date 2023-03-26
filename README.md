@@ -34,6 +34,13 @@ laudspeaker.identify(
       anotherUserProperty: 'value2' } // optional
 );
 ```
+Before the `identify` method is called, we create an anonymous customer in laudspeaker at the beginning of a browser session, and we identify that customer using an anonymous identifier saved in the browser's local storage. When the user is idenitified, we then correlate that identifier with the customer in laudspeaker, upserting if that user doesnt exist and replacing the token if the customer has already been correlaet with a previous session.
 
 ### Firing custom events:
+To fire custom events, call the `laudspeaker.fire` method with the event JSON and payload information:
+```
+laudspeaker.fire({'event':'some event'}, { 'payload': 'some value' });
+```
+If the user has been identified, the event will be correlated with that identity, oherwise it will be associated with the anonymous identifier. If the user is later identified, the previously identified events will be correlated with the identified user.
+
 ### In App Messaging:
