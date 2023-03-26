@@ -26,5 +26,14 @@ laudspeaker.init('<laudspeaker_api_key>', { api_host: '<laudspeaker_instance_add
 ## Usage:
 
 ### Identifying Users:
+To identify a user, call the `laudspeaker.identify` method with the user's unique id and any other properties you want to set:
+```
+laudspeaker.identify(
+    {'[unique field name]': '[user unique id]',} // distinct_id, required
+    { userProperty: 'value1',
+      anotherUserProperty: 'value2' } // optional
+);
+```
 
+### Firing custom events:
 ### In App Messaging:
