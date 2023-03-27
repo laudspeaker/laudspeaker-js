@@ -1,0 +1,48 @@
+{
+  "name": "laudspeaker-js",
+  "version": "1.0.0",
+  "description": "Please see the laudspeaker-js docs for more information.",
+  "main": "./dist/main.js",
+  "root": true,
+  "scripts": {
+    "start": "node ./dist/index.js",
+    "prebuild": "rimraf dist",
+    "build": "webpack --mode=production --node-env=production",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:dev": "rimraf dist && webpack --mode=development",
+    "build:prod": "rimraf dist && webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laudspeaker/laudspeaker-js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/laudspeaker/laudspeaker-js/issues"
+  },
+  "homepage": "https://github.com/laudspeaker/laudspeaker-js#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "@webpack-cli/generators": "^3.0.1",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-standard-with-typescript": "^34.0.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "html-webpack-plugin": "^5.5.0",
+    "prettier": "^2.8.7",
+    "rimraf": "^4.4.1",
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.0.2",
+    "webpack": "^5.76.3",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.13.1"
+  }
+}
