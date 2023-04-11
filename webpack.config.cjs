@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 
 const path = require('path');
@@ -7,8 +8,14 @@ const isProduction = process.env.NODE_ENV == 'production';
 
 const config = {
   entry: './src/index.ts',
+  devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, 'dist'),
+    filename: 'index.js',
+    clean: true,
+    library: 'laudspeakerjs',
+    libraryTarget: 'umd',
+    globalObject: 'this',
   },
   devServer: {
     open: true,
