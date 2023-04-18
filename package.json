@@ -9,7 +9,7 @@
     "start": "node ./dist/index.js",
     "prepare": "npm run build",
     "prebuild": "rimraf dist",
-    "build": "webpack --mode=production --node-env=production",
+    "build": "npm run build:prod",
     "test": "echo \"Error: no test specified\" && exit 0",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
@@ -52,5 +52,8 @@
     "webpack": "^5.76.3",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.13.1"
+  },
+  "dependencies": {
+    "socket.io-client": "^4.6.1"
   }
 }
