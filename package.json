@@ -2,7 +2,7 @@
   "name": "laudspeaker-js",
   "version": "1.0.0",
   "description": "Please see the laudspeaker-js docs for more information.",
-  "main": "./dist/main.js",
+  "main": "./dist/index.js",
   "type": "module",
   "root": true,
   "scripts": {
@@ -34,6 +34,7 @@
   },
   "homepage": "https://github.com/laudspeaker/laudspeaker-js#readme",
   "devDependencies": {
+    "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
     "@webpack-cli/generators": "^3.0.1",
@@ -54,6 +55,10 @@
     "webpack-dev-server": "^4.13.1"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.17",
+    "react-dom": "^18.2.0",
+    "react-markdown": "^8.0.7",
+    "react-social-media-embed": "^2.3.5",
     "socket.io-client": "^4.6.1"
   }
 }

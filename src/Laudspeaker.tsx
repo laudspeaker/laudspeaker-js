@@ -1,5 +1,9 @@
 import { Socket, io } from 'socket.io-client';
 import EventEmitter from './EventEmitter';
+import { Root, createRoot } from 'react-dom/client';
+import Modal from './Modal';
+import React from 'react';
+import { ModalState } from './types';
 
 interface InitOptions {
   apiHost?: string;
@@ -11,17 +15,23 @@ export default class Laudspeaker extends EventEmitter<PossibleEvent> {
   private host = 'https://laudspeaker.com';
   private socket?: Socket;
   private apiKey?: string;
+  private readonly _reactRoot: Root;
 
   constructor() {
     // for debugging and logging
     localStorage.debug = '*';
     super();
+
+    const rootDiv = document.createElement('div');
+    document.body.appendChild(rootDiv);
+
+    this._reactRoot = createRoot(rootDiv);
   }
 
   public init(laudspeakerApiKey: string, options?: InitOptions) {
     this.apiKey = laudspeakerApiKey;
 
-    if (options.apiHost) this.host = options.apiHost;
+    if (options?.apiHost) this.host = options.apiHost;
 
     if (this.socket) this.socket.close();
 
@@ -35,6 +45,7 @@ export default class Laudspeaker extends EventEmitter<PossibleEvent> {
     this.socket
       .on('connect', () => {
         console.log('Connected to laudspeaker API websocket gateway');
+        this.updateModalState();
         this.emit('connect');
       })
       .on('disconnect', () => {
@@ -51,6 +62,7 @@ export default class Laudspeaker extends EventEmitter<PossibleEvent> {
       })
       .on('customerId', (id) => {
         localStorage.setItem('customerId', id);
+        this.updateModalState();
         this.emit('customerId');
       });
   }
@@ -81,6 +93,44 @@ export default class Laudspeaker extends EventEmitter<PossibleEvent> {
   }
 
   public ping() {
+    if (!this.socket) {
+      console.error(
+        'Impossible to fire: no connection to API. Try to init connection first'
+      );
+      return;
+    }
+
     this.socket.emit('ping');
+  }
+
+  public async updateModalState() {
+    const modalState = await this._retrieveModalState();
+    if (!modalState) return;
+
+    await this._renderModalState(modalState);
+  }
+
+  private async _retrieveModalState(): Promise<ModalState> {
+    try {
+      const res = await fetch(
+        'http://localhost:3001/modals/' + localStorage.getItem('customerId'),
+        {
+          headers: {
+            Authorization: `Api-Key ${this.apiKey}`,
+          },
+        }
+      );
+
+      if (!res.ok) return;
+
+      const modalState = (await res.json()) as ModalState;
+      return modalState;
+    } catch (e) {
+      console.error('Error while retrieving modal state: ' + e);
+    }
+  }
+
+  private async _renderModalState(modalState: ModalState) {
+    this._reactRoot.render(<Modal modalState={modalState} />);
   }
 }
