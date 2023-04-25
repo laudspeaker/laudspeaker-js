@@ -1,7 +1,7 @@
 import { Socket, io } from 'socket.io-client';
 import EventEmitter from './EventEmitter';
 import { Root, createRoot } from 'react-dom/client';
-import Modal from './Modal';
+import Modal from './components/Modal';
 import React from 'react';
 import { ModalState } from './types';
 
@@ -9,23 +9,28 @@ interface InitOptions {
   apiHost?: string;
 }
 
-type PossibleEvent = 'connect' | 'disconnect' | 'log' | 'error' | 'customerId';
+type PossibleEvent =
+  | 'connect'
+  | 'disconnect'
+  | 'log'
+  | 'error'
+  | 'customerId'
+  | 'modal';
 
 export default class Laudspeaker extends EventEmitter<PossibleEvent> {
   private host = 'https://laudspeaker.com';
   private socket?: Socket;
   private apiKey?: string;
-  private readonly _reactRoot: Root;
+  private readonly rootDiv = document.createElement('div');
+  private _reactRoot: Root;
 
   constructor() {
     // for debugging and logging
     localStorage.debug = '*';
     super();
 
-    const rootDiv = document.createElement('div');
-    document.body.appendChild(rootDiv);
-
-    this._reactRoot = createRoot(rootDiv);
+    document.body.appendChild(this.rootDiv);
+    this._reactRoot = createRoot(this.rootDiv);
   }
 
   public init(laudspeakerApiKey: string, options?: InitOptions) {
@@ -64,6 +69,10 @@ export default class Laudspeaker extends EventEmitter<PossibleEvent> {
         localStorage.setItem('customerId', id);
         this.updateModalState();
         this.emit('customerId');
+      })
+      .on('modal', (modalState: ModalState) => {
+        this._renderModalState(modalState);
+        this.emit('modal');
       });
   }
 
@@ -131,6 +140,8 @@ export default class Laudspeaker extends EventEmitter<PossibleEvent> {
   }
 
   private async _renderModalState(modalState: ModalState) {
+    this._reactRoot.unmount();
+    this._reactRoot = createRoot(this.rootDiv);
     this._reactRoot.render(<Modal modalState={modalState} />);
   }
 }

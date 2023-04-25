@@ -13,9 +13,12 @@ const config = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
     clean: true,
-    library: 'laudspeakerjs',
-    libraryTarget: 'umd',
+    library: {
+      name: 'laudspeakerjs',
+      type: 'umd',
+    },
     globalObject: 'this',
+    umdNamedDefine: true,
   },
   devServer: {
     open: true,
