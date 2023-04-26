@@ -3,6 +3,7 @@ import EventEmitter from './EventEmitter';
 import { Root, createRoot } from 'react-dom/client';
 import Modal from './components/Modal';
 import { ModalState } from './types';
+import React from 'react';
 
 interface InitOptions {
   apiHost?: string;

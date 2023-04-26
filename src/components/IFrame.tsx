@@ -1,4 +1,4 @@
-import { useState, ReactNode, FC } from 'react';
+import React, { useState, ReactNode, FC } from 'react';
 import { createPortal } from 'react-dom';
 
 export interface IFrameProps {

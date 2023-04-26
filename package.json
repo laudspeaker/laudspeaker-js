@@ -5,7 +5,6 @@
   "description": "Please see the laudspeaker-js docs for more information.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "type": "module",
   "root": true,
   "scripts": {
     "start": "node ./dist/index.js",
