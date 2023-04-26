@@ -6,3 +6,4 @@ webpack.config.cjs
 .gitignore
 .editorconfig
 .prettierrc.json
+.eslintrc.cjs

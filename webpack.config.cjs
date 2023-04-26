@@ -8,7 +8,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const config = {
   entry: './src/index.ts',
-  devtool: 'source-map',
+  devtool: isProduction ? undefined : 'source-map',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
