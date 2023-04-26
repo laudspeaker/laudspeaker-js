@@ -1,0 +1,65 @@
+{
+  "name": "@laudspeaker/laudspeaker-js",
+  "author": "laudspeaker.com",
+  "version": "0.1.0",
+  "description": "Please see the laudspeaker-js docs for more information.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "root": true,
+  "scripts": {
+    "start": "node ./dist/index.js",
+    "prepare": "npm run build",
+    "prebuild": "rimraf dist",
+    "build": "npm run build:prod",
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "prepublishOnly": "npm test && npm run lint && npm run build",
+    "preversion": "npm run lint",
+    "version": "npm run lint:fix && git add -A src",
+    "postversion": "git push && git push --tags",
+    "build:dev": "rimraf dist && webpack --mode=development",
+    "build:prod": "rimraf dist && webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve",
+    "lint": "eslint --ignore-path .gitignore . && prettier -c --ignore-path .gitignore .",
+    "lint:fix": "eslint --fix --ignore-path .gitignore . && prettier --write --ignore-path .gitignore ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laudspeaker/laudspeaker-js.git"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/laudspeaker/laudspeaker-js/issues"
+  },
+  "homepage": "https://github.com/laudspeaker/laudspeaker-js#readme",
+  "devDependencies": {
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "@webpack-cli/generators": "^3.0.1",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-standard-with-typescript": "^34.0.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "html-webpack-plugin": "^5.5.0",
+    "prettier": "^2.8.7",
+    "rimraf": "^4.4.1",
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.0.2",
+    "webpack": "^5.76.3",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.13.1"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.0.17",
+    "react-dom": "^18.2.0",
+    "react-markdown": "^8.0.7",
+    "react-social-media-embed": "^2.3.5",
+    "socket.io-client": "^4.6.1"
+  }
+}
