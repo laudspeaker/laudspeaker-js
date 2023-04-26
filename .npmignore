@@ -1,1 +1,8 @@
 node_modules
+src
+public
+tsconfig.json
+webpack.config.cjs
+.gitignore
+.editorconfig
+.prettierrc.json
