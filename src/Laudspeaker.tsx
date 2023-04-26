@@ -2,7 +2,6 @@ import { Socket, io } from 'socket.io-client';
 import EventEmitter from './EventEmitter';
 import { Root, createRoot } from 'react-dom/client';
 import Modal from './components/Modal';
-import React from 'react';
 import { ModalState } from './types';
 
 interface InitOptions {
@@ -143,5 +142,9 @@ export default class Laudspeaker extends EventEmitter<PossibleEvent> {
     this._reactRoot.unmount();
     this._reactRoot = createRoot(this.rootDiv);
     this._reactRoot.render(<Modal modalState={modalState} />);
+  }
+
+  public async renderPreview(reactRoot: Root, modalState: ModalState) {
+    reactRoot.render(<Modal modalState={modalState} />);
   }
 }

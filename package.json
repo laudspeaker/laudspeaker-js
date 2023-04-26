@@ -1,8 +1,10 @@
 {
-  "name": "laudspeaker-js",
-  "version": "1.0.0",
+  "name": "@laudspeaker/laudspeaker-js",
+  "author": "laudspeaker.com",
+  "version": "0.1.0",
   "description": "Please see the laudspeaker-js docs for more information.",
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "type": "module",
   "root": true,
   "scripts": {
@@ -11,7 +13,7 @@
     "prebuild": "rimraf dist",
     "build": "npm run build:prod",
     "test": "echo \"Error: no test specified\" && exit 0",
-    "prepublishOnly": "npm test && npm run lint",
+    "prepublishOnly": "npm test && npm run lint && npm run build",
     "preversion": "npm run lint",
     "version": "npm run lint:fix && git add -A src",
     "postversion": "git push && git push --tags",
@@ -27,7 +29,6 @@
     "url": "git+https://github.com/laudspeaker/laudspeaker-js.git"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/laudspeaker/laudspeaker-js/issues"

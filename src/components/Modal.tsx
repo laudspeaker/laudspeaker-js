@@ -1,6 +1,6 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { getSocialMediaPlatform, SocialMedia } from '../helpers/socialMedia';
-import React, { CSSProperties, FC, ReactNode, useState } from 'react';
+import { CSSProperties, FC, ReactNode, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import {
   FacebookEmbed,
@@ -148,14 +148,6 @@ const Modal: FC<ModalProps> = ({ modalState }) => {
     <IFrame
       head={
         <>
-          {/* <link
-            href="https://unpkg.com/normalize.css@8.0.1/normalize.css"
-            rel="stylesheet"
-          />
-          <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/modern-normalize/modern-normalize.min.css"
-          /> */}
           <link
             rel="stylesheet"
             href="https://unpkg.com/tailwindcss@3.3.1/src/css/preflight.css"
