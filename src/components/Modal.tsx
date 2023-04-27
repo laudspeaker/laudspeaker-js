@@ -113,11 +113,11 @@ const alignmentStyleMap: Record<Alignment, 'left' | 'center' | 'right'> = {
   [Alignment.RIGHT]: 'right',
 };
 
-interface ModalProps {
+export interface ModalProps {
   modalState: ModalState;
 }
 
-const Modal: FC<ModalProps> = ({ modalState }) => {
+export const Modal: FC<ModalProps> = ({ modalState }) => {
   const [isModalOpen, setIsModalOpen] = useState(true);
 
   const CanvasBackground: Record<BackgroundType, string> = {
@@ -611,5 +611,3 @@ const Modal: FC<ModalProps> = ({ modalState }) => {
     </IFrame>
   );
 };
-
-export default Modal;
