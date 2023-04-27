@@ -1,13 +1,19 @@
-import React, { useState, ReactNode, FC } from 'react';
+import React, { useState, ReactNode, FC, CSSProperties } from 'react';
 import { createPortal } from 'react-dom';
 
 export interface IFrameProps {
   head?: ReactNode;
   children: ReactNode;
+  style?: CSSProperties;
   [key: string]: unknown;
 }
 
-export const IFrame: FC<IFrameProps> = ({ children, head, ...props }) => {
+export const IFrame: FC<IFrameProps> = ({
+  children,
+  head,
+  style,
+  ...props
+}) => {
   const [contentRef, setContentRef] = useState<HTMLIFrameElement | null>(null);
   const mountHeadNode = contentRef?.contentWindow?.document?.head;
   const mountBodyNode = contentRef?.contentWindow?.document?.body;
@@ -21,6 +27,7 @@ export const IFrame: FC<IFrameProps> = ({ children, head, ...props }) => {
         top: 0,
         left: 0,
         zIndex: 2147483647,
+        ...style,
       }}
       {...props}
       ref={setContentRef}

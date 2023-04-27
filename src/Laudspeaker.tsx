@@ -116,7 +116,7 @@ export default class Laudspeaker extends EventEmitter<PossibleEvent> {
     const modalState = await this._retrieveModalState();
     if (!modalState) return;
 
-    await this._renderModalState(modalState);
+    this._renderModalState(modalState);
   }
 
   private async _retrieveModalState(): Promise<ModalState> {
@@ -139,13 +139,13 @@ export default class Laudspeaker extends EventEmitter<PossibleEvent> {
     }
   }
 
-  private async _renderModalState(modalState: ModalState) {
+  private _renderModalState(modalState: ModalState) {
     this._reactRoot.unmount();
     this._reactRoot = createRoot(this.rootDiv);
     this._reactRoot.render(<Modal modalState={modalState} />);
   }
 
-  public async renderPreview(reactRoot: Root, modalState: ModalState) {
-    reactRoot.render(<Modal modalState={modalState} />);
+  public getPreviewComponent(modalState: ModalState): JSX.Element {
+    return <Modal modalState={modalState} />;
   }
 }

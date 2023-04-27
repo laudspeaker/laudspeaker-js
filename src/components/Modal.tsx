@@ -154,6 +154,14 @@ const Modal: FC<ModalProps> = ({ modalState }) => {
           />
         </>
       }
+      style={
+        isModalOpen
+          ? {}
+          : {
+              display: 'none',
+            }
+      }
+      onClick={() => setIsModalOpen(false)}
     >
       <div
         style={{
