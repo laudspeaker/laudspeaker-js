@@ -1,5 +1,5 @@
-import Laudspeaker from './Laudspeaker';
-import { Modal, ModalProps } from './components/Modal';
+import { Laudspeaker } from './Laudspeaker';
 
-export default new Laudspeaker();
-export { Modal, ModalProps };
+const laudspeakerInstance = new Laudspeaker();
+
+export default laudspeakerInstance;

@@ -4,6 +4,7 @@ import { Root, createRoot } from 'react-dom/client';
 import { Modal } from './components/Modal';
 import { ModalState } from './types';
 import React from 'react';
+import { renderPreviewModal } from './helpers/preview';
 
 interface InitOptions {
   apiHost?: string;
@@ -17,12 +18,13 @@ type PossibleEvent =
   | 'customerId'
   | 'modal';
 
-export default class Laudspeaker extends EventEmitter<PossibleEvent> {
+export class Laudspeaker extends EventEmitter<PossibleEvent> {
   private host = 'https://laudspeaker.com';
   private socket?: Socket;
   private apiKey?: string;
   private readonly rootDiv = document.createElement('div');
   private _reactRoot: Root;
+  public renderPreviewModal = renderPreviewModal;
 
   constructor() {
     // for debugging and logging
