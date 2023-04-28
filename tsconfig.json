@@ -11,7 +11,7 @@
     "declarationMap": true,
     "outDir": "./dist",
     "moduleResolution": "node",
-    "typeRoots": ["./node_modules/@types", "./src/types.ts"],
+    "typeRoots": ["./node_modules/@types", "./src/types.ts"]
   },
   "files": ["src/index.ts"],
   "include": ["src"],
