@@ -210,10 +210,10 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
 
         @keyframes fullfilCircle {
           from {
-            stroke-dashoffset: ${modalState.dismiss.textSize * Math.PI}
+            stroke-dashoffset: 0
           }
           to {
-            stroke-dashoffset: 0
+            stroke-dashoffset: ${modalState.dismiss.textSize * Math.PI}
           }
         }
 
@@ -225,10 +225,10 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
 
         @keyframes fullfilCloseDismiss {
           from {
-            width: 0%
+            width: 100%
           }
           to {
-             width: 100%
+            width: 0%
           }
         }
 
@@ -294,8 +294,7 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
                     position: 'absolute',
                     top: '50%',
                     left: '50%',
-                    transform:
-                      'translateX(-50%) translateY(-50%) rotate(-90deg)',
+                    transform: 'translateX(-50%) translateY(-50%)',
                     ...(modalState.dismiss.timedDismiss.enabled &&
                     modalState.dismiss.timedDismiss.displayTimer
                       ? {}
@@ -304,17 +303,6 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
                     height: modalState.dismiss.textSize + 2,
                   }}
                 >
-                  <circle
-                    style={{
-                      color: modalState.dismiss.color,
-                    }}
-                    strokeWidth="2"
-                    stroke="currentColor"
-                    fill="transparent"
-                    r={modalState.dismiss.textSize / 2}
-                    cx={modalState.dismiss.textSize / 2 + 1}
-                    cy={modalState.dismiss.textSize / 2 + 1}
-                  />
                   <circle
                     id="dismissCircle"
                     style={{
@@ -360,14 +348,31 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
               <div
                 style={{
                   position: 'relative',
+                  transform: 'rotate(180deg)',
                 }}
               >
                 <div
                   style={{
+                    color: 'transparent',
                     padding: '5px',
+                    transform: 'rotate(180deg)',
                   }}
                 >
-                  close
+                  {modalState.dismiss.content}
+                </div>
+
+                <div
+                  style={{
+                    position: 'absolute',
+                    zIndex: 9999,
+                    top: 0,
+                    left: 0,
+                    height: '100%',
+                    padding: '5px',
+                    transform: 'rotate(180deg)',
+                  }}
+                >
+                  {modalState.dismiss.content}
                 </div>
 
                 <div
@@ -383,7 +388,6 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
                       modalState.dismiss.timedDismiss.displayTimer
                         ? modalState.dismiss.timedDismiss.timerColor
                         : '',
-                    // width: `${dismissProgress * 100}%`,
                   }}
                   onAnimationStart={() => {
                     if (
@@ -396,15 +400,7 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
                       setIsModalOpen(false);
                     }, modalState.dismiss.timedDismiss.duration * 1000);
                   }}
-                >
-                  <div
-                    style={{
-                      padding: '5px',
-                    }}
-                  >
-                    close
-                  </div>
-                </div>
+                />
               </div>
             )}
           </div>
@@ -602,7 +598,7 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
                   }
                 }}
               >
-                <button>Read more</button>
+                <button>{modalState.primaryButton.content}</button>
               </div>
             </div>
           </div>
