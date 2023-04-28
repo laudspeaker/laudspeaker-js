@@ -78,11 +78,15 @@ export class Laudspeaker extends EventEmitter<PossibleEvent> {
       });
   }
 
+  public disconnect() {
+    this.socket.close();
+  }
+
   public identify(
     uniqueProperties: { [key: string]: unknown },
     optionalProperties?: { [key: string]: unknown }
   ) {
-    if (!this.socket) {
+    if (!this.socket?.connected) {
       console.error(
         'Impossible to identify: no connection to API. Try to init connection first'
       );
@@ -93,7 +97,7 @@ export class Laudspeaker extends EventEmitter<PossibleEvent> {
   }
 
   public fire(event: { [key: string]: unknown }) {
-    if (!this.socket) {
+    if (!this.socket?.connected) {
       console.error(
         'Impossible to fire: no connection to API. Try to init connection first'
       );
@@ -104,7 +108,7 @@ export class Laudspeaker extends EventEmitter<PossibleEvent> {
   }
 
   public ping() {
-    if (!this.socket) {
+    if (!this.socket?.connected) {
       console.error(
         'Impossible to fire: no connection to API. Try to init connection first'
       );
