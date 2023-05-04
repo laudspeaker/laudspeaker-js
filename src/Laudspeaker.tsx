@@ -145,7 +145,7 @@ export class Laudspeaker extends EventEmitter<PossibleEvent> {
     }
   }
 
-  private _renderModalState(modalState: ModalState) {
+  public _renderModalState(modalState: ModalState) {
     this._reactRoot.unmount();
     this._reactRoot = createRoot(this.rootDiv);
     this._reactRoot.render(<Modal modalState={modalState} />);
