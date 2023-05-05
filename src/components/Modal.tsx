@@ -24,7 +24,7 @@ import {
 } from '../types';
 import { IFrame } from './IFrame';
 
-const modalPositionMap: Record<ModalPosition, CSSProperties> = {
+export const modalPositionMap: Record<ModalPosition, CSSProperties> = {
   [ModalPosition.BOTTOM_CENTER]: {
     justifyContent: 'center',
     alignItems: 'end',
@@ -55,7 +55,7 @@ const modalPositionMap: Record<ModalPosition, CSSProperties> = {
   },
 };
 
-const mediaPositionMap: Record<MediaPosition, CSSProperties> = {
+export const mediaPositionMap: Record<MediaPosition, CSSProperties> = {
   [MediaPosition.TOP]: {
     display: 'flex',
     flexDirection: 'column',
@@ -68,7 +68,7 @@ const mediaPositionMap: Record<MediaPosition, CSSProperties> = {
   [MediaPosition.RIGHT]: { display: 'flex', flexDirection: 'row-reverse' },
 };
 
-const dismissPositionMap: Record<DismissPosition, CSSProperties> = {
+export const dismissPositionMap: Record<DismissPosition, CSSProperties> = {
   [DismissPosition.CENTER_LEFT]: {
     left: '10px',
     top: '50%',
@@ -97,7 +97,10 @@ const dismissPositionMap: Record<DismissPosition, CSSProperties> = {
   },
 };
 
-const primaryButtomPositionMap: Record<PrimaryButtonPosition, CSSProperties> = {
+export const primaryButtomPositionMap: Record<
+  PrimaryButtonPosition,
+  CSSProperties
+> = {
   [PrimaryButtonPosition.BOTTOM_CENTER]: {
     width: 'fit-content',
     margin: '0 auto',
@@ -107,11 +110,12 @@ const primaryButtomPositionMap: Record<PrimaryButtonPosition, CSSProperties> = {
   [PrimaryButtonPosition.CENTER_RIGHT]: {},
 };
 
-const alignmentStyleMap: Record<Alignment, 'left' | 'center' | 'right'> = {
-  [Alignment.LEFT]: 'left',
-  [Alignment.CENTER]: 'center',
-  [Alignment.RIGHT]: 'right',
-};
+export const alignmentStyleMap: Record<Alignment, 'left' | 'center' | 'right'> =
+  {
+    [Alignment.LEFT]: 'left',
+    [Alignment.CENTER]: 'center',
+    [Alignment.RIGHT]: 'right',
+  };
 
 export interface ModalProps {
   modalState: ModalState;
@@ -154,14 +158,11 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
           />
         </>
       }
-      style={
-        isModalOpen
-          ? {}
-          : {
-              display: 'none',
-            }
-      }
+      style={{
+        display: isModalOpen ? 'block' : 'none',
+      }}
       onClick={() => setIsModalOpen(false)}
+      data-testid="laudspeaker-modal-iframe"
     >
       <div
         style={{
@@ -180,6 +181,7 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
           zIndex: 2147483645,
           padding: '20px',
         }}
+        data-testid="laudspeaker-modal-shroud-wrapper"
       >
         {/* <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script> */}
         <style>
@@ -263,6 +265,7 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
             padding: '18px',
           }}
           id="modalView"
+          data-testid="laudspeaker-modal-view-wrapper"
         >
           <div
             style={{
@@ -275,6 +278,7 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
               fontSize: modalState.dismiss.textSize,
             }}
             onClick={() => setIsModalOpen(false)}
+            data-testid="laudspeaker-modal-dismiss-wrapper"
           >
             {modalState.dismiss.type === DismissType.CROSS ? (
               <div
@@ -407,6 +411,7 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
           <div>
             <div
               id="modal-viewer-title-wrapper"
+              data-testid="laudspeaker-modal-title-wrapper"
               style={modalState.title.hidden ? { display: 'none' } : {}}
             >
               <div
@@ -416,6 +421,7 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
                   fontSize: modalState.title.fontSize,
                   minHeight: '20px',
                 }}
+                data-testid="laudspeaker-modal-title"
               >
                 <ReactMarkdown className="whitespace-pre-line">
                   {modalState.title.content}
@@ -434,6 +440,7 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
                     }
                   : {}
               }
+              data-testid="laudspeaker-modal-primary-button-wrapper"
             >
               <div
                 style={{
@@ -442,6 +449,7 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
+                data-testid="laudspeaker-modal-media-wrapper"
               >
                 <div
                   style={{
@@ -454,6 +462,7 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
                           alignItems: 'center',
                         }),
                   }}
+                  data-testid="laudspeaker-modal-media"
                 >
                   {modalState.media.type === MediaType.IMAGE && (
                     <img
@@ -542,6 +551,7 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
                 <div
                   id="modal-viewer-body-wrapper"
                   style={modalState.body.hidden ? { display: 'none' } : {}}
+                  data-testid="laudspeaker-modal-body-wrapper"
                 >
                   <div
                     style={{
@@ -550,6 +560,7 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
                       fontSize: modalState.body.fontSize,
                       minHeight: '20px',
                     }}
+                    data-testid="laudspeaker-modal-body"
                   >
                     <ReactMarkdown className="whitespace-pre-line">
                       {modalState.body.content}
@@ -558,6 +569,7 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
                 </div>
               </div>
               <div
+                data-testid="laudspeaker-modal-primary-button"
                 style={{
                   backgroundColor: modalState.primaryButton.fillColor,
                   color: modalState.primaryButton.textColor,
@@ -571,7 +583,7 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
                   userSelect: 'none',
                   cursor: 'pointer',
                   borderWidth: '2px',
-                  marginTop: '18px',
+                  margin: '18px',
                   whiteSpace: 'nowrap',
                   ...primaryButtomPositionMap[
                     modalState.primaryButton.position

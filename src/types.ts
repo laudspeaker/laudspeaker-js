@@ -111,7 +111,7 @@ export interface AdditionalClickOpenURLOption {
 export interface IAdditionalClick {
   hidden: boolean;
   action: AdditionalClickOptions;
-  object: undefined | AdditionalClickOpenURLOption; // When new types arrive add -> | NewClickOptionParams
+  object?: AdditionalClickOpenURLOption; // When new types arrive add -> | NewClickOptionParams
 }
 
 export type AdditionalClicks = Record<AdditionalClickOptions, IAdditionalClick>;
