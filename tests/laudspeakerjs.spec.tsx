@@ -1,7 +1,13 @@
 import React from 'react';
 import laudspeakerjs from '../dist';
 import mockModalState from './fixtures/mockModalState';
-import { cleanup, render, screen, within } from '@testing-library/react';
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from '@testing-library/react';
 import {
   Modal,
   alignmentStyleMap,
@@ -12,7 +18,6 @@ import {
 } from '../src/components/Modal';
 import fromReactToDOMStyles from './utils/fromReactToDOMStyles';
 import { BackgroundType, PrimaryButtonPosition, SizeUnit } from '../src/types';
-import ReactMarkdown from 'react-markdown';
 
 describe('laudspeakerjs - general', () => {
   test('document body is present', () => {
@@ -369,5 +374,75 @@ describe('laudspeakerjs - modal renderer', () => {
     expect(modalPrimaryButton).toHaveTextContent(
       mockModalState.primaryButton.content
     );
+  });
+});
+
+describe('laudspeakerjs - interactions with modal', () => {
+  beforeEach(() => {
+    render(<Modal modalState={mockModalState} />);
+  });
+
+  afterEach(() => {
+    cleanup();
+  });
+
+  test('closes modal after click on dismiss', () => {
+    const iframe = screen.getByTestId(
+      'laudspeaker-modal-iframe'
+    ) as HTMLIFrameElement;
+    const iframeDocument =
+      iframe.contentWindow?.document || iframe.contentDocument;
+
+    if (!iframeDocument) throw new Error('No iframe content found');
+
+    const modalDismissWrapper = within(iframeDocument.body).getByTestId(
+      'laudspeaker-modal-dismiss-wrapper'
+    );
+
+    fireEvent.click(modalDismissWrapper);
+
+    expect(iframe).toHaveStyle({
+      display: 'none',
+    });
+  });
+
+  test('closes modal after click on primary buttom', () => {
+    const iframe = screen.getByTestId(
+      'laudspeaker-modal-iframe'
+    ) as HTMLIFrameElement;
+    const iframeDocument =
+      iframe.contentWindow?.document || iframe.contentDocument;
+
+    if (!iframeDocument) throw new Error('No iframe content found');
+
+    const modalPrimaryButton = within(iframeDocument.body).getByTestId(
+      'laudspeaker-modal-primary-button'
+    );
+
+    fireEvent.click(modalPrimaryButton);
+
+    expect(iframe).toHaveStyle({
+      display: 'none',
+    });
+  });
+
+  test('closes modal after click on image', () => {
+    const iframe = screen.getByTestId(
+      'laudspeaker-modal-iframe'
+    ) as HTMLIFrameElement;
+    const iframeDocument =
+      iframe.contentWindow?.document || iframe.contentDocument;
+
+    if (!iframeDocument) throw new Error('No iframe content found');
+
+    const modalMediaImage = within(iframeDocument.body).getByTestId(
+      'laudspeaker-modal-image'
+    );
+
+    fireEvent.click(modalMediaImage);
+
+    expect(iframe).toHaveStyle({
+      display: 'none',
+    });
   });
 });
