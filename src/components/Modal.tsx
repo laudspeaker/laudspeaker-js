@@ -471,6 +471,7 @@ export const Modal: FC<ModalProps> = ({ modalState }) => {
                       }}
                       src={modalState.media.imageSrc || ''}
                       alt={modalState.media.altText}
+                      data-testid="laudspeaker-modal-image"
                       onClick={() => {
                         if (
                           modalState.media.actionOnClick ===
