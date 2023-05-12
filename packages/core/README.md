@@ -16,7 +16,7 @@ Please see the laudspeaker-js docs for more information.
 2. Include it using npm:
 
 ```
-npm install --save laudspeaker-js
+npm install --save @laudspeaker/laudspeaker-js
 ```
 
 and then include it in your files:
