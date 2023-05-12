@@ -24,7 +24,7 @@ and then include it in your files:
 ```
 import laudspeaker from 'laudspeaker-js'
 
-laudspeaker.init('<laudspeaker_api_key>', { api_host: '<laudspeaker_instance_address>' });
+laudspeaker.init('<laudspeaker_api_key>', { apiHost: '<laudspeaker_instance_address>' });
 ```
 
 ## Usage:
