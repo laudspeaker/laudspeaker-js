@@ -5,6 +5,8 @@ Please see the laudspeaker-js docs for more information.
 
 ## Installation:
 
+We have two options:
+
 1. Paste this snippet within the <head> tags of your website - ideally just inside the closing </head> tag - on all pages that you are using Laudspeaker:
 ```
 <script>
