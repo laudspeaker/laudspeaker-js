@@ -79,7 +79,7 @@ export class Laudspeaker extends EventEmitter<PossibleEvent> {
   }
 
   public disconnect() {
-    this.socket.close();
+    this.socket?.close();
   }
 
   public identify(
@@ -136,12 +136,12 @@ export class Laudspeaker extends EventEmitter<PossibleEvent> {
         }
       );
 
-      if (!res.ok) return;
+      if (!res.ok) throw new Error('Error while retrieving modal state');
 
       const modalState = (await res.json()) as ModalState;
       return modalState;
     } catch (e) {
-      console.error('Error while retrieving modal state: ' + e);
+      throw 'Error while retrieving modal state: ' + e;
     }
   }
 
