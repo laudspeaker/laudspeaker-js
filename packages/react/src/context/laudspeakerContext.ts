@@ -1,11 +1,12 @@
 import { createContext } from 'react';
+import { Laudspeaker } from '@laudspeaker/laudspeaker-js';
 
 interface LaudspeakerContextState {
-  apiKey: string;
+  laudspeaker: Laudspeaker;
 }
 
 const initialValue: LaudspeakerContextState = {
-  apiKey: '',
+  laudspeaker: new Laudspeaker(),
 };
 
 export const LaudspeakerContext =

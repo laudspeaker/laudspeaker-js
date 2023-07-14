@@ -1,12 +1,24 @@
-import ReactDOM from 'react-dom/client';
+import LaudspeakerProvider from './components/LaudspeakerProvider';
+import useTracker from './hooks/useTracker';
+import useLaudspeaker from './hooks/useLaudspeaker';
 
-export { default as LaudspeakerProvider } from './LaudspeakerProvider';
-export { default as useTracker } from './hooks/useTracker';
+export { LaudspeakerProvider, useTracker, useLaudspeaker };
 
 if (process.env.NODE_ENV === 'development') {
-  const root = ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement
-  );
+  (async () => {
+    const ReactDOM = await import('react-dom/client');
 
-  root.render(<></>);
+    const root = ReactDOM.createRoot(
+      document.getElementById('root') as HTMLElement
+    );
+
+    root.render(
+      <LaudspeakerProvider
+        apiKey="8hSKrIT44qHq6BWbs2tPmGnIB0nnGINND0ZbSg2R"
+        apiHost="http://localhost:3001"
+      >
+        <div>Hello.</div>
+      </LaudspeakerProvider>
+    );
+  })();
 }

@@ -16,7 +16,8 @@ type PossibleEvent =
   | 'log'
   | 'error'
   | 'customerId'
-  | 'modal';
+  | 'modal'
+  | 'special-modal';
 
 export class Laudspeaker extends EventEmitter<PossibleEvent> {
   private host = 'https://laudspeaker.com';
@@ -75,6 +76,9 @@ export class Laudspeaker extends EventEmitter<PossibleEvent> {
       .on('modal', (modalState: ModalState) => {
         this._renderModalState(modalState);
         this.emit('modal');
+      })
+      .on('special-modal', (payload: unknown) => {
+        this.emit('special-modal', payload);
       });
   }
 
@@ -110,7 +114,7 @@ export class Laudspeaker extends EventEmitter<PossibleEvent> {
   public ping() {
     if (!this.socket?.connected) {
       console.error(
-        'Impossible to fire: no connection to API. Try to init connection first'
+        'Impossible to ping: no connection to API. Try to init connection first'
       );
       return;
     }
@@ -119,10 +123,14 @@ export class Laudspeaker extends EventEmitter<PossibleEvent> {
   }
 
   public async updateModalState() {
-    const modalState = await this._retrieveModalState();
-    if (!modalState) return;
+    try {
+      const modalState = await this._retrieveModalState();
+      if (!modalState) return;
 
-    this._renderModalState(modalState);
+      this._renderModalState(modalState);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   private async _retrieveModalState(): Promise<ModalState> {
