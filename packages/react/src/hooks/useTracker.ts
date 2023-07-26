@@ -9,7 +9,10 @@ interface TrackerState {
 
 const useTracker = (
   id: string
-): {state:TrackerState | undefined, emitTrackerEvent:typeof emitTrackerEvent} => {
+): {
+  state: TrackerState | undefined;
+  emitTrackerEvent: typeof emitTrackerEvent;
+} => {
   const [state, setState] = useState<TrackerState | undefined>(undefined);
   const { laudspeaker } = useContext(LaudspeakerContext);
 
@@ -36,7 +39,7 @@ const useTracker = (
     return () => laudspeaker.removeListener('custom', modalListener);
   }, []);
 
-  return {state, emitTrackerEvent};
+  return { state, emitTrackerEvent };
 };
 
 export default useTracker;

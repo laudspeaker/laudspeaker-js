@@ -1,7 +1,7 @@
 {
   "name": "@laudspeaker/react",
   "author": "laudspeaker.com",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Please see the laudspeaker-js docs for more information.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -67,6 +67,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.17",
+    "@laudspeaker/laudspeaker-js": "^0.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.7",
