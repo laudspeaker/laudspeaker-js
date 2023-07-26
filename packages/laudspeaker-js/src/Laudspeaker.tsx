@@ -17,7 +17,7 @@ type PossibleEvent =
   | 'error'
   | 'customerId'
   | 'modal'
-  | 'special-modal';
+  | 'custom';
 
 export class Laudspeaker extends EventEmitter<PossibleEvent> {
   private host = 'https://laudspeaker.com';
@@ -77,8 +77,8 @@ export class Laudspeaker extends EventEmitter<PossibleEvent> {
         this._renderModalState(modalState);
         this.emit('modal');
       })
-      .on('special-modal', (payload: unknown) => {
-        this.emit('special-modal', payload);
+      .on('custom', (payload: unknown) => {
+        this.emit('custom', payload);
       });
   }
 
@@ -120,6 +120,17 @@ export class Laudspeaker extends EventEmitter<PossibleEvent> {
     }
 
     this.socket.emit('ping');
+  }
+
+  public emitTracker(trackerId: string, event: string) {
+    if (!this.socket?.connected) {
+      console.error(
+        'Impossible to send tracker event: no connection to API. Try to init connection first'
+      );
+      return;
+    }
+
+    this.socket.emit('custom', { trackerId, event });
   }
 
   public async updateModalState() {
