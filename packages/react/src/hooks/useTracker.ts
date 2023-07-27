@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 interface TrackerState {
   show: boolean;
   trackerId: string;
-  [key: string]: any | unknown;
+  [key: string]: unknown;
 }
 
 const useTracker = (

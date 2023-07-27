@@ -45,6 +45,10 @@ const config = {
       },
     ],
   },
+  externals: {
+    react: 'react',
+    'react-dom': 'reactDOM',
+  },
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js', '...'],
     alias: {
