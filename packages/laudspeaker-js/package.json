@@ -71,9 +71,5 @@
     "react-markdown": "^8.0.7",
     "react-social-media-embed": "^2.3.5",
     "socket.io-client": "^4.6.1"
-  },
-  "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
   }
 }
