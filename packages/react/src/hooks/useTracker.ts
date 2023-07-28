@@ -4,20 +4,21 @@ import { useContext, useEffect, useState } from 'react';
 interface TrackerState {
   show: boolean;
   trackerId: string;
-  [key: string]: unknown;
 }
 
-const useTracker = (
+const useTracker = <
+  T extends Record<string | number | symbol, unknown> = Record<string, unknown>
+>(
   id: string
 ): {
-  state: TrackerState | undefined;
+  state: (TrackerState & T) | undefined;
   emitTrackerEvent: typeof emitTrackerEvent;
 } => {
-  const [state, setState] = useState<TrackerState | undefined>(undefined);
+  const [state, setState] = useState<TrackerState & T>();
   const { laudspeaker } = useContext(LaudspeakerContext);
 
   const modalListener = (modalData: unknown) => {
-    const data = modalData as TrackerState;
+    const data = modalData as TrackerState & T;
     if (data.trackerId === id) {
       setState(data);
     }
