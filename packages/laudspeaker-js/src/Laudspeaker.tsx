@@ -41,7 +41,7 @@ export class Laudspeaker extends EventEmitter<PossibleEvent> {
 
     if (options?.apiHost) this.host = options.apiHost;
 
-    if (this.socket) this.socket.close();
+    if (this.socket.readyState === 1) this.socket.close();
 
     this.socket = io(this.host, {
       auth: {
