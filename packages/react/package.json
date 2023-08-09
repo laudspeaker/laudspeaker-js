@@ -65,7 +65,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.17",
-    "@laudspeaker/laudspeaker-js": "^0.2.0",
+    "@laudspeaker/laudspeaker-js": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.7",
