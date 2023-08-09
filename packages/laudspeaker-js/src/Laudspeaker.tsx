@@ -41,7 +41,7 @@ export class Laudspeaker extends EventEmitter<PossibleEvent> {
 
     if (options?.apiHost) this.host = options.apiHost;
 
-    if (this.socket.readyState === 1) this.socket.close();
+    if (this.socket?.io._readyState === 'open') this.socket.close();
 
     this.socket = io(this.host, {
       auth: {
@@ -83,7 +83,7 @@ export class Laudspeaker extends EventEmitter<PossibleEvent> {
   }
 
   public disconnect() {
-    this.socket?.close();
+    if (this.socket?.io._readyState === 'open') this.socket.close();
   }
 
   public identify(
