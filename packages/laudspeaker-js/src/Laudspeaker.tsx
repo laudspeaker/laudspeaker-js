@@ -147,7 +147,7 @@ export class Laudspeaker extends EventEmitter<PossibleEvent> {
   private async _retrieveModalState(): Promise<ModalState> {
     try {
       const res = await fetch(
-        'http://localhost:3001/modals/' + localStorage.getItem('customerId'),
+        this.host + '/modals/' + localStorage.getItem('customerId'),
         {
           headers: {
             Authorization: `Api-Key ${this.apiKey}`,
