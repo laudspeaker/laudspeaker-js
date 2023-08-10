@@ -19,6 +19,19 @@ export class LaudspeakerJS extends Laudspeaker<PossibleModalEvent> {
     this._reactRoot = createRoot(this.rootDiv);
   }
 
+  public async init(
+    laudspeakerApiKey: string,
+    // TODO: fix type
+    options: { apiHost?: string }
+  ): Promise<void> {
+    await super.init(laudspeakerApiKey, options);
+    this.socket?.on('modal', (modalState) => {
+      console.log(modalState);
+      this._renderModalState(modalState as ModalState);
+      this.emit('modal');
+    });
+  }
+
   public async updateModalState() {
     try {
       const modalState = await this._retrieveModalState();
