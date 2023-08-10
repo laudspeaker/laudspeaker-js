@@ -1,19 +1,23 @@
 {
   "compilerOptions": {
-    "jsx": "react",
+    "jsx": "react-jsx",
+    "lib": ["es6", "dom", "dom.iterable", "esnext"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "noImplicitAny": true,
     "module": "ESNext",
     "target": "es5",
+    "strict": true,
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist",
     "moduleResolution": "node",
-    "typeRoots": ["./node_modules/@types", "./src/types.ts"]
+    "isolatedModules": true,
+    "paths": {
+      "@root/*": ["./src/*"]
+    }
   },
-  "files": ["src/index.ts"],
   "include": ["src"],
   "exclude": ["node_modules"]
 }

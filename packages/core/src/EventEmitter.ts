@@ -15,7 +15,7 @@ export default class EventEmitter<T extends string = string> {
     }
   }
 
-  public on(event: T, handler: () => void) {
+  public on(event: T, handler: (payload?: unknown) => void) {
     const handlers = this.handlersMap.get(event);
 
     if (handlers) {
@@ -24,5 +24,15 @@ export default class EventEmitter<T extends string = string> {
     }
 
     this.handlersMap.set(event, [handler]);
+  }
+
+  public removeListener(event: T, handler: (payload?: unknown) => void) {
+    const handlers = this.handlersMap.get(event);
+    if (!handlers) return;
+
+    const handlerIndex = handlers.indexOf(handler);
+    if (handlerIndex === -1) return;
+
+    handlers.splice(handlerIndex, 1);
   }
 }
