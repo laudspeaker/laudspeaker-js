@@ -1,7 +1,7 @@
-import { Laudspeaker } from './Laudspeaker';
+import { LaudspeakerJS } from './Laudspeaker';
 
-const laudspeakerInstance = new Laudspeaker();
+const laudspeakerInstance = new LaudspeakerJS();
 
-export { Laudspeaker };
+export { LaudspeakerJS as Laudspeaker };
 
 export default laudspeakerInstance;
