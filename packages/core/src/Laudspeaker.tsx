@@ -1,5 +1,7 @@
 import { Socket, io } from 'socket.io-client';
 import EventEmitter from './EventEmitter';
+import { sha256 } from 'js-sha256';
+import { Buffer } from 'buffer';
 
 interface InitOptions {
   apiHost?: string;
@@ -31,7 +33,49 @@ export class Laudspeaker<E extends string = PossibleEvent> extends EventEmitter<
     this.storage.setItem('debug', '*');
   }
 
+  private async getEventStorageData() {
+    const es = await this.storage.getItem('eventsStore');
+    let storageData;
+    try {
+      if (es) storageData = JSON.parse(es);
+    } catch (e) {
+      await this.storage.setItem('eventsStore', '{}');
+      return {};
+    }
+
+    return storageData;
+  }
+
+  private async addTrackerHash(value: string) {
+    const es = await this.getEventStorageData();
+
+    const base64 = Buffer.from(sha256.create().update(value).hex()).toString(
+      'base64'
+    );
+
+    if (es[base64] === false) {
+      console.warn(
+        `Event ${base64} has not been yet finished please be patient.`
+      );
+      return false;
+    }
+
+    es[base64] = false;
+    await this.storage.setItem('eventsStore', JSON.stringify(es));
+    return true;
+  }
+
+  private async removeProcessedTrackerHash(hash: string) {
+    const es = await this.getEventStorageData();
+
+    if (es[hash]) delete es[hash];
+
+    await this.storage.setItem('eventsStore', JSON.stringify(es));
+  }
+
   public async init(laudspeakerApiKey: string, options?: InitOptions) {
+    await this.storage.setItem('eventsStore', '{}');
+
     this.apiKey = laudspeakerApiKey;
 
     if (options?.apiHost) this.host = options.apiHost;
@@ -68,6 +112,9 @@ export class Laudspeaker<E extends string = PossibleEvent> extends EventEmitter<
       })
       .on('custom', (payload: unknown) => {
         this.emit('custom', payload);
+      })
+      .on('processedEvent', async (eventHash) => {
+        await this.removeProcessedTrackerHash(eventHash);
       });
   }
 
@@ -111,7 +158,7 @@ export class Laudspeaker<E extends string = PossibleEvent> extends EventEmitter<
     this.socket.emit('ping');
   }
 
-  public emitTracker(trackerId: string, event: string) {
+  public async emitTracker(trackerId: string, event: string) {
     if (!this.socket?.connected) {
       console.error(
         'Impossible to send tracker event: no connection to API. Try to init connection first'
@@ -119,6 +166,9 @@ export class Laudspeaker<E extends string = PossibleEvent> extends EventEmitter<
       return;
     }
 
-    this.socket.emit('custom', { trackerId, event });
+    const id = await this.storage.getItem('customerId');
+    const result = await this.addTrackerHash(event + trackerId + id);
+
+    if (result) this.socket.emit('custom', { trackerId, event });
   }
 }
