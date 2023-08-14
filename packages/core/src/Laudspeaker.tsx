@@ -68,7 +68,7 @@ export class Laudspeaker<E extends string = PossibleEvent> extends EventEmitter<
   private async removeProcessedTrackerHash(hash: string) {
     const es = await this.getEventStorageData();
 
-    if (es[hash]) delete es[hash];
+    if (!es[hash]) delete es[hash];
 
     await this.storage.setItem('eventsStore', JSON.stringify(es));
   }
