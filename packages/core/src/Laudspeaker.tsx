@@ -26,11 +26,13 @@ export class Laudspeaker<E extends string = PossibleEvent> extends EventEmitter<
   protected host = 'https://laudspeaker.com';
   protected socket?: Socket;
   protected apiKey?: string;
+  private blockList: Record<string, boolean>;
 
   constructor(protected storage: LaudspeakerStorage) {
     super();
     // for debugging and logging
     this.storage.setItem('debug', '*');
+    this.blockList = {};
   }
 
   private async getEventStorageData() {
@@ -166,9 +168,15 @@ export class Laudspeaker<E extends string = PossibleEvent> extends EventEmitter<
       return;
     }
 
+    if (this.blockList[trackerId + event]) return;
+
+    this.blockList[trackerId + event] = true;
+
     const id = await this.storage.getItem('customerId');
     const result = await this.addTrackerHash(event + trackerId + id);
 
     if (result) this.socket.emit('custom', { trackerId, event });
+
+    delete this.blockList[trackerId + event];
   }
 }
