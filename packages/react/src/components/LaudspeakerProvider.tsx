@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useEffect } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { LaudspeakerContext } from '../context/laudspeakerContext';
 import laudspeaker from '@laudspeaker/laudspeaker-js';
 
@@ -13,6 +13,8 @@ const LaudspeakerProvider: FC<LaudspeakerProviderProps> = ({
   apiKey,
   apiHost,
 }) => {
+  const trackerData = useState({});
+
   useEffect(() => {
     laudspeaker.init(apiKey, { apiHost });
 
@@ -22,7 +24,7 @@ const LaudspeakerProvider: FC<LaudspeakerProviderProps> = ({
   }, []);
 
   return (
-    <LaudspeakerContext.Provider value={{ laudspeaker }}>
+    <LaudspeakerContext.Provider value={{ laudspeaker, trackerData }}>
       {children}
     </LaudspeakerContext.Provider>
   );

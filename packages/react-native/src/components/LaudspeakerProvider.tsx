@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useEffect } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { LaudspeakerContext } from '../context/laudspeakerContext';
 import { Laudspeaker } from '@laudspeaker/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -16,6 +16,8 @@ const LaudspeakerProvider: FC<LaudspeakerProviderProps> = ({
   apiKey,
   apiHost,
 }) => {
+  const trackerData = useState({});
+
   useEffect(() => {
     laudspeaker.init(apiKey, { apiHost });
 
@@ -25,7 +27,7 @@ const LaudspeakerProvider: FC<LaudspeakerProviderProps> = ({
   }, []);
 
   return (
-    <LaudspeakerContext.Provider value={{ laudspeaker }}>
+    <LaudspeakerContext.Provider value={{ laudspeaker, trackerData }}>
       {children}
     </LaudspeakerContext.Provider>
   );
