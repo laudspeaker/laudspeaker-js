@@ -1,7 +1,7 @@
 {
   "name": "@laudspeaker/react-native",
   "author": "laudspeaker.com",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Please see the laudspeaker-js docs for more information.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

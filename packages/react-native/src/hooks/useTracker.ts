@@ -1,5 +1,5 @@
 import { LaudspeakerContext } from '@root/context/laudspeakerContext';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 export interface BaseTrackerState {
   show: boolean;
@@ -15,26 +15,15 @@ const useTracker = <
 >(
   id: string
 ): {
-  state: (TrackerState & T) | undefined;
+  state: TrackerState<T> | undefined;
   emitTrackerEvent: typeof emitTrackerEvent;
 } => {
   const {
     laudspeaker,
-    trackerData: [trackerData, setTrackerData],
+    trackerData: [trackerData],
   } = useContext(LaudspeakerContext);
 
   const state = trackerData[id] as TrackerState<T>;
-
-  const setState = (value: TrackerState<T>) => {
-    setTrackerData({ ...trackerData, [id]: value });
-  };
-
-  const modalListener = (modalData: unknown) => {
-    const data = modalData as TrackerState & T;
-    if (data.trackerId === id) {
-      setState(data);
-    }
-  };
 
   const emitTrackerEvent = (event: string) => {
     if (state?.trackerId) {
@@ -45,12 +34,6 @@ const useTracker = <
       );
     }
   };
-
-  useEffect(() => {
-    laudspeaker.on('custom', modalListener);
-
-    return () => laudspeaker.removeListener('custom', modalListener);
-  }, []);
 
   return { state, emitTrackerEvent };
 };

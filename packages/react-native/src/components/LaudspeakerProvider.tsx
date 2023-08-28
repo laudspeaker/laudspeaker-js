@@ -18,10 +18,18 @@ const LaudspeakerProvider: FC<LaudspeakerProviderProps> = ({
 }) => {
   const trackerData = useState({});
 
+  const handleTracker = (data: any) => {
+    if (data?.trackerId) {
+      trackerData[1]((prev) => ({ ...prev, [data.trackerId]: data }));
+    }
+  };
+
   useEffect(() => {
     laudspeaker.init(apiKey, { apiHost });
+    laudspeaker.on('custom', handleTracker);
 
     return () => {
+      laudspeaker.removeListener('custom', handleTracker);
       laudspeaker.disconnect();
     };
   }, []);
