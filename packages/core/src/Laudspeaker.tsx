@@ -160,10 +160,10 @@ export class Laudspeaker<E extends string = PossibleEvent> extends EventEmitter<
     this.socket.emit('ping');
   }
 
-  public async emitTracker(trackerId: string, event: string) {
+  public async emitCustomComponents(trackerId: string, event: string) {
     if (!this.socket?.connected) {
       console.error(
-        'Impossible to send tracker event: no connection to API. Try to init connection first'
+        'Impossible to send custom component event: no connection to API. Try to init connection first'
       );
       return;
     }
