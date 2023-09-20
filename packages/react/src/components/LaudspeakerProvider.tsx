@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useEffect } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { LaudspeakerContext } from '../context/laudspeakerContext';
 import laudspeaker from '@laudspeaker/laudspeaker-js';
 
@@ -13,16 +13,26 @@ const LaudspeakerProvider: FC<LaudspeakerProviderProps> = ({
   apiKey,
   apiHost,
 }) => {
+  const trackerData = useState({});
+
+  const handleTracker = (data: any) => {
+    if (data?.trackerId) {
+      trackerData[1]((prev) => ({ ...prev, [data.trackerId]: data }));
+    }
+  };
+
   useEffect(() => {
     laudspeaker.init(apiKey, { apiHost });
+    laudspeaker.on('custom', handleTracker);
 
     return () => {
+      laudspeaker.removeListener('custom', handleTracker);
       laudspeaker.disconnect();
     };
   }, []);
 
   return (
-    <LaudspeakerContext.Provider value={{ laudspeaker }}>
+    <LaudspeakerContext.Provider value={{ laudspeaker, trackerData }}>
       {children}
     </LaudspeakerContext.Provider>
   );
