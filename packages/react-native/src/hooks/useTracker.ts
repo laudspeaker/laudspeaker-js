@@ -16,7 +16,7 @@ const useTracker = <
   id: string
 ): {
   state: TrackerState<T> | undefined;
-  emitTrackerEvent: typeof emitTrackerEvent;
+  emitCustomComponents: typeof emitCustomComponents;
 } => {
   const {
     laudspeaker,
@@ -25,9 +25,9 @@ const useTracker = <
 
   const state = trackerData[id] as TrackerState<T>;
 
-  const emitTrackerEvent = (event: string) => {
+  const emitCustomComponents = (event: string) => {
     if (state?.trackerId) {
-      laudspeaker.emitTracker(id, event);
+      laudspeaker.emitCustomComponents(id, event);
     } else {
       console.error(
         'You should get state of tracker from backend to emit tracker event'
@@ -35,7 +35,7 @@ const useTracker = <
     }
   };
 
-  return { state, emitTrackerEvent };
+  return { state, emitCustomComponents };
 };
 
 export default useTracker;
