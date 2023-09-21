@@ -1,5 +1,5 @@
 import LaudspeakerProvider from './components/LaudspeakerProvider';
-import useTracker from './hooks/useTracker';
+import useLaudComponent from './hooks/useLaudComponent';
 import useLaudspeaker from './hooks/useLaudspeaker';
 
-export { LaudspeakerProvider, useTracker, useLaudspeaker };
+export { LaudspeakerProvider, useLaudComponent, useLaudspeaker };

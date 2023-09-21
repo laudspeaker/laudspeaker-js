@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
 import { Laudspeaker } from '@laudspeaker/laudspeaker-js';
-import { TrackerState } from '@root/hooks/useTracker';
+import { TrackerState } from '@root/hooks/useLaudComponent';
 
 interface LaudspeakerContextState {
   laudspeaker: Laudspeaker;

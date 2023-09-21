@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import { Laudspeaker } from '@laudspeaker/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TrackerState } from '@root/hooks/useTracker';
+import { TrackerState } from '@root/hooks/useLaudComponent';
 
 interface LaudspeakerContextState {
   laudspeaker: Laudspeaker;

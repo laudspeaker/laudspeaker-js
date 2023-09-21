@@ -1,7 +1,7 @@
 {
   "name": "@laudspeaker/react",
   "author": "laudspeaker.com",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Please see the laudspeaker-js docs for more information.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

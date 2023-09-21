@@ -10,7 +10,7 @@ export type TrackerState<
   T extends Record<string | number | symbol, unknown> = Record<string, unknown>
 > = (BaseTrackerState & T) | undefined;
 
-const useTracker = <
+const useLaudComponent = <
   T extends Record<string | number | symbol, unknown> = Record<string, unknown>
 >(
   id: string
@@ -38,4 +38,4 @@ const useTracker = <
   return { state, emitCustomComponents };
 };
 
-export default useTracker;
+export default useLaudComponent;
