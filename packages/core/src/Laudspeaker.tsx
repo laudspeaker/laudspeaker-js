@@ -64,6 +64,10 @@ export class Laudspeaker<E extends string = PossibleEvent> extends EventEmitter<
 
     es[base64] = false;
     await this.storage.setItem('eventsStore', JSON.stringify(es));
+
+    setTimeout(() => {
+      delete es[base64];
+    }, 2000);
     return true;
   }
 
