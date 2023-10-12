@@ -5,6 +5,7 @@ import { Buffer } from 'buffer';
 
 interface InitOptions {
   apiHost?: string;
+  development?: boolean;
 }
 
 type PossibleEvent =
@@ -26,6 +27,7 @@ export class Laudspeaker<E extends string = PossibleEvent> extends EventEmitter<
   protected host = 'https://laudspeaker.com';
   protected socket?: Socket;
   protected apiKey?: string;
+  protected development?: boolean;
   private blockList: Record<string, boolean>;
 
   constructor(protected storage: LaudspeakerStorage) {
@@ -83,6 +85,7 @@ export class Laudspeaker<E extends string = PossibleEvent> extends EventEmitter<
     await this.storage.setItem('eventsStore', '{}');
 
     this.apiKey = laudspeakerApiKey;
+    this.development = !!options?.development;
 
     if (options?.apiHost) this.host = options.apiHost;
 
@@ -92,6 +95,7 @@ export class Laudspeaker<E extends string = PossibleEvent> extends EventEmitter<
       auth: {
         apiKey: laudspeakerApiKey,
         customerId: await this.storage.getItem('customerId'),
+        development: this.development,
       },
     });
 

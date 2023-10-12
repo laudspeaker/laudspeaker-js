@@ -6,12 +6,14 @@ interface LaudspeakerProviderProps {
   children: ReactNode;
   apiKey: string;
   apiHost?: string;
+  development?: boolean | undefined;
 }
 
 const LaudspeakerProvider: FC<LaudspeakerProviderProps> = ({
   children,
   apiKey,
   apiHost,
+  development,
 }) => {
   const trackerData = useState({});
 
@@ -22,7 +24,7 @@ const LaudspeakerProvider: FC<LaudspeakerProviderProps> = ({
   };
 
   useEffect(() => {
-    laudspeaker.init(apiKey, { apiHost });
+    laudspeaker.init(apiKey, { apiHost, development });
     laudspeaker.on('custom', handleTracker);
 
     return () => {

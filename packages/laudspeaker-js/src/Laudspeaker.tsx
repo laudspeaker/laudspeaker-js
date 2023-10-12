@@ -22,7 +22,7 @@ export class LaudspeakerJS extends Laudspeaker<PossibleModalEvent> {
   public async init(
     laudspeakerApiKey: string,
     // TODO: fix type
-    options: { apiHost?: string }
+    options: { apiHost?: string; development?: boolean }
   ): Promise<void> {
     await super.init(laudspeakerApiKey, options);
     this.socket?.on('modal', (modalState) => {
