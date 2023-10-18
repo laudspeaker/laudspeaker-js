@@ -19,10 +19,10 @@ jobs:
       - run:
           name: Publish packages
           command: |
-            cd ~/packages/core && npm publish
-            cd ~/packages/laudspeaker-js && npm publish
-            cd ~/packages/react && npm publish
-            cd ~/packages/react-native && npm publish
+            cd ~/project/packages/core && npm publish
+            cd ~/project/packages/laudspeaker-js && npm publish
+            cd ~/project/packages/react && npm publish
+            cd ~/project/packages/react-native && npm publish
 
 workflows:
   main:
