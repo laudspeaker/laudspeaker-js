@@ -1,7 +1,7 @@
 {
   "name": "@laudspeaker/core",
   "author": "laudspeaker.com",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Please see the laudspeaker-js docs for more information.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -60,6 +60,8 @@
     "webpack-dev-server": "^4.13.1"
   },
   "dependencies": {
+    "@sentry/browser": "^7.74.1",
+    "@sentry/integrations": "^7.74.1",
     "buffer": "^6.0.3",
     "js-sha256": "^0.9.0",
     "socket.io-client": "^4.6.1"

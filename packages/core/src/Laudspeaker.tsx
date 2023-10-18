@@ -1,7 +1,36 @@
+import * as Sentry from '@sentry/browser';
+import { CaptureConsole, HttpClient } from '@sentry/integrations';
 import { Socket, io } from 'socket.io-client';
 import EventEmitter from './EventEmitter';
 import { sha256 } from 'js-sha256';
 import { Buffer } from 'buffer';
+
+Sentry.init({
+  dsn: 'https://2444369e8e13b39377ba90663ae552d1@o4506038702964736.ingest.sentry.io/4506038705192960',
+
+  // Alternatively, use `process.env.npm_package_version` for a dynamic release version
+  // if your build tool supports it.
+  integrations: [
+    new Sentry.BrowserTracing(),
+    new Sentry.Replay(),
+    new CaptureConsole({ levels: ['error'] }),
+    new HttpClient(),
+  ],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+  sendDefaultPii: true,
+
+  // Set `tracePropagationTargets` to control for which URLs distributed tracing should be enabled
+  tracePropagationTargets: ['localhost', /^https:\/\/laudspeaker\.com\/api/],
+
+  // Capture Replay for 10% of all sessions,
+  // plus for 100% of sessions with an error
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1.0,
+});
 
 interface InitOptions {
   apiHost?: string;

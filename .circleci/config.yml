@@ -1,0 +1,29 @@
+version: 2.1
+jobs:
+  build_and_publish:
+    docker:
+      - image: cimg/node:18.12
+    steps:
+      - run:
+          name: Authenticate with registry
+          command: |
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./packages/core/.npmrc
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./packages/laudspeaker-js/.npmrc
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./packages/react/.npmrc
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./packages/react-native/.npmrc
+      - run:
+          name: Publish packages
+          command: |
+            cd ~/packages/core && npm publish
+            cd ~/packages/laudspeaker-js && npm publish
+            cd ~/packages/react && npm publish
+            cd ~/packages/react-native && npm publish
+
+workflows:
+  main:
+    jobs:
+      - build_and_publish:
+          filters:
+            branches:
+              only:
+                - main
