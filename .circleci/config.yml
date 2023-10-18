@@ -4,6 +4,10 @@ jobs:
     docker:
       - image: cimg/node:18.12
     steps:
+      - save_cache:
+          key: v1-cache
+          paths:
+            - project/
       - checkout
       - run:
           name: Authenticate with registry
