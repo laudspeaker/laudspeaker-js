@@ -10,6 +10,10 @@ jobs:
             - project/
       - checkout
       - run:
+          name: Install packages
+          command: |
+            npm install
+      - run:
           name: Authenticate with registry
           command: |
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./packages/core/.npmrc
