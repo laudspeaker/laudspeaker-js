@@ -4,6 +4,8 @@ Please see the laudspeaker-js docs for more information.
 
 ## Installation:
 
+We have two options:
+
 1. Paste this snippet within the <head> tags of your website - ideally just inside the closing </head> tag - on all pages that you are using Laudspeaker:
 
 ```
@@ -16,7 +18,7 @@ Please see the laudspeaker-js docs for more information.
 2. Include it using npm:
 
 ```
-npm install --save laudspeaker-js
+npm install --save @laudspeaker/laudspeaker-js
 ```
 
 and then include it in your files:
@@ -24,7 +26,7 @@ and then include it in your files:
 ```
 import laudspeaker from 'laudspeaker-js'
 
-laudspeaker.init('<laudspeaker_api_key>', { api_host: '<laudspeaker_instance_address>' });
+laudspeaker.init('<laudspeaker_api_key>', { apiHost: '<laudspeaker_instance_address>' });
 ```
 
 ## Usage:
