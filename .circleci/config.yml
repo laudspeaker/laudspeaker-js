@@ -4,6 +4,7 @@ jobs:
     docker:
       - image: cimg/node:18.12
     steps:
+      - checkout
       - run:
           name: Authenticate with registry
           command: |
