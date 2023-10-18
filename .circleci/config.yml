@@ -16,10 +16,7 @@ jobs:
       - run:
           name: Authenticate with registry
           command: |
-            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./packages/core/.npmrc
-            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./packages/laudspeaker-js/.npmrc
-            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./packages/react/.npmrc
-            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./packages/react-native/.npmrc
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./.npmrc
       - run:
           name: Publish packages
           command: |
