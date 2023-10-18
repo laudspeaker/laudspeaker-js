@@ -3,6 +3,12 @@
   "version": "0.0.0",
   "description": "Please see the laudspeaker-js docs for more information.",
   "root": true,
+  "workspaces": [
+    "packages/core",
+    "packages/laudspeaker-js",
+    "packages/react",
+    "packages/react-native"
+  ],
   "private": true,
   "scripts": {
     "lint": "eslint --ignore-path ./.gitignore . && prettier -c --ignore-path ./.gitignore .",
