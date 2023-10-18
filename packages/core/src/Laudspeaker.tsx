@@ -6,8 +6,7 @@ import { sha256 } from 'js-sha256';
 import { Buffer } from 'buffer';
 
 Sentry.init({
-  dsn: 'https://2444369e8e13b39377ba90663ae552d1@o4506038702964736.ingest.sentry.io/4506038705192960',
-
+  dsn: 'https://38bde6fe4f9631e4986803cc92beb355@o4506038702964736.ingest.sentry.io/4506073738838016',
   // Alternatively, use `process.env.npm_package_version` for a dynamic release version
   // if your build tool supports it.
   integrations: [
